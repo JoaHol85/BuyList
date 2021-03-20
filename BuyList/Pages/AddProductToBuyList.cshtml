@@ -1,0 +1,25 @@
+﻿@page
+@model BuyList.Pages.AddProductToBuyListModel
+@inject SignInManager<IdentityUser> SignInMAnager
+@inject UserManager<IdentityUser> UserManager 
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@if(user == null)
+{
+    <p>Logga in för att lägga till varor i köplistan.</p>
+}
+
+@if(user != null)
+{
+    <div class="text-center">
+        <form method="post" class="form-group">
+            <label>Välj Lista att lägga till varor i.</label>
+            <select ></select>
+
+
+        </form>
+
+    </div>
+}
