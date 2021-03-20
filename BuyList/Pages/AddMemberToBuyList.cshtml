@@ -1,4 +1,31 @@
 ﻿@page
 @model BuyList.Pages.AddMemberToBuyListModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
 @{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@if(user == null)
+{
+    <div>
+        <p>Du måste vara inloggad för att kunna lägga till dig i en lista.</p>
+    </div>
+}
+
+@if(user != null)
+{
+<div class="text-center">
+    <form method="post">
+        <label></label>
+        <select name="BuyListName" id="BuyListName">
+            @foreach (var list in Model.ListOfBuyLists)
+	            {
+		             <option value="@list.Name">@list.Name</option>
+	            }
+        </select>
+        <input type="hidden" id="MemberId" name="MemberId" value="@user.Id"/>
+        <button type="submit" class="btn btn-primary">Lägg till dig i listan</button>
+    </form>
+</div>
 }
