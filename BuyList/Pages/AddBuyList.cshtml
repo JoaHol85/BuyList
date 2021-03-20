@@ -1,0 +1,28 @@
+﻿@page
+@model BuyList.Pages.AddBuyListModel
+@inject SignInManager<IdentityUser> SignInManager
+@inject UserManager<IdentityUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+}
+
+@if (user == null)
+{
+    <div class="text-center">
+        <h3>Logga in för att skapa en inköpslista</h3>
+    </div>
+}
+
+@if (user != null)
+{ 
+    <div class="text-center">
+        <h3 class="p-3">Skapa inköpslista</h3>
+        <form method="post" class="form-group">
+            <label>Namn på Listan:</label><br />
+            <input type="text" asp-for="@Model.BuyList.Name" required placeholder="namn på listan" autofocus/><br />
+            <input type="hidden" asp-for="@Model.BuyList.UserId" value="@user.Id" />
+       
+            <button type="submit">Skapa Lista</button>
+        </form>
+    </div>
+}
